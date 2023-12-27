@@ -1,23 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
+import "./App.css";
+import React, { Suspense, lazy } from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Header } from "./components/Header";
+import { Home } from "./components/Home";
+import { Loading } from "./components/Loading";
+import { PageNotFound } from "./components/PageNotFound";
+
+const WatchList = lazy(() => import("./components/WatchList"));
+const FanFavourite = lazy(() => import("./components/FanFavourite"));
+const InTheatres = lazy(() => import("./components/InTheatres"));
+const ComingSoon = lazy(() => import("./components/ComingSoon"));
+const MovieDetails = lazy(() => import("./components/MovieDetails"));
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <BrowserRouter>
+        <Header />
+        <Suspense fallback={<Loading />}>
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="movies">
+              <Route path="watchlist" element={<WatchList />} />
+              <Route path="fan-favourite" element={<FanFavourite />} />
+              <Route path="in-theatres" element={<InTheatres />} />
+              <Route path="coming-soon" element={<ComingSoon />} />
+              <Route path="details/:movieId" element={<MovieDetails />} />
+            </Route>
+            <Route path="/*" element={<PageNotFound />} />
+          </Routes>
+        </Suspense>
+      </BrowserRouter>
     </div>
   );
 }
