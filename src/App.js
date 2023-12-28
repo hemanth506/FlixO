@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useState, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { Home } from "./components/Home";
@@ -13,27 +13,33 @@ const ComingSoon = lazy(() => import("./components/ComingSoon"));
 const MovieDetails = lazy(() => import("./components/MovieDetails"));
 const TopRated = lazy(() => import("./components/TopRated"));
 
+export const WatchListContext = createContext();
+
 function App() {
+  const watchListData = useState([]);
+
   return (
-    <div className="App">
-      <BrowserRouter>
-        <Header />
-        <Suspense fallback={<Loading />}>
-          <Routes>
-            <Route path="/" element={<Home />} />
-            <Route path="movies">
-              <Route path="watchlist" element={<WatchList />} />
-              <Route path="fan-favourite" element={<FanFavourite />} />
-              <Route path="in-theatres" element={<InTheatres />} />
-              <Route path="coming-soon" element={<ComingSoon />} />
-              <Route path="top-rated" element={<TopRated />} />
-              <Route path="details/:movieId" element={<MovieDetails />} />
-            </Route>
-            <Route path="/*" element={<PageNotFound />} />
-          </Routes>
-        </Suspense>
-      </BrowserRouter>
-    </div>
+    <WatchListContext.Provider value={watchListData}>
+      <div className="App">
+        <BrowserRouter>
+          <Header />
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route path="/" element={<Home />} />
+              <Route path="movies">
+                <Route path="watchlist" element={<WatchList />} />
+                <Route path="fan-favourite" element={<FanFavourite />} />
+                <Route path="in-theatres" element={<InTheatres />} />
+                <Route path="coming-soon" element={<ComingSoon />} />
+                <Route path="top-rated" element={<TopRated />} />
+                <Route path="details/:movieId" element={<MovieDetails />} />
+              </Route>
+              <Route path="/*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
+        </BrowserRouter>
+      </div>
+    </WatchListContext.Provider>
   );
 }
 

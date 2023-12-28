@@ -1,4 +1,4 @@
-import React, { useEffect, useState, createContext } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { MovieContainers } from "./sub-components/MovieContainer";
 import {
   fetchComingSoon,
@@ -7,8 +7,7 @@ import {
   fetchTopRated,
   fetchTrending,
 } from "../api/endpoints";
-
-export const WatchListContext = createContext();
+import { WatchListContext } from "../App";
 
 export const Home = () => {
   const [comingSoonData, setComingSoonData] = useState([]);
@@ -16,7 +15,7 @@ export const Home = () => {
   const [fanFavouriteData, setFanFavouriteData] = useState([]);
   const [inTheatresData, setInTheatresData] = useState([]);
   const [trendingData, setTrendingData] = useState([]);
-  const watchListData = useState([]);
+  const watchListData = useContext(WatchListContext);
 
   const [comingSoonLoading, setComingSoonLoading] = useState(true);
   const [topRatedLoading, setTopRatedLoading] = useState(true);
@@ -65,46 +64,44 @@ export const Home = () => {
   }, []);
 
   return (
-    <WatchListContext.Provider value={watchListData}>
-      <main style={mainStyle}>
-        <MovieContainers
-          title="Top 10 of this week"
-          path="trending"
-          dataArr={trendingData}
-          loadingState={trendingLoading}
-        />
-        <MovieContainers
-          title="From your watchList"
-          path="watchlist"
-          dataArr={watchListData[0]}
-          loadingState={comingSoonLoading}
-        />
-        <MovieContainers
-          title="Fan Favourites"
-          path="fan-favourite"
-          dataArr={fanFavouriteData}
-          loadingState={fanFavouriteLoading}
-        />
-        <MovieContainers
-          title="Top Rated"
-          path="top-rated"
-          dataArr={topRatedData}
-          loadingState={topRatedLoading}
-        />
-        <MovieContainers
-          title="In Theatres"
-          path="in-theatres"
-          dataArr={inTheatresData}
-          loadingState={inTheatresLoading}
-        />
-        <MovieContainers
-          title="Coming soon to theatres"
-          path="coming-soon"
-          dataArr={comingSoonData}
-          loadingState={comingSoonLoading}
-        />
-      </main>
-    </WatchListContext.Provider>
+    <main style={mainStyle}>
+      <MovieContainers
+        title="Top 10 of this week"
+        path="trending"
+        dataArr={trendingData}
+        loadingState={trendingLoading}
+      />
+      <MovieContainers
+        title="From your watchList"
+        path="watchlist"
+        dataArr={watchListData[0]}
+        loadingState={comingSoonLoading}
+      />
+      <MovieContainers
+        title="Fan Favourites"
+        path="fan-favourite"
+        dataArr={fanFavouriteData}
+        loadingState={fanFavouriteLoading}
+      />
+      <MovieContainers
+        title="Top Rated"
+        path="top-rated"
+        dataArr={topRatedData}
+        loadingState={topRatedLoading}
+      />
+      <MovieContainers
+        title="In Theatres"
+        path="in-theatres"
+        dataArr={inTheatresData}
+        loadingState={inTheatresLoading}
+      />
+      <MovieContainers
+        title="Coming soon to theatres"
+        path="coming-soon"
+        dataArr={comingSoonData}
+        loadingState={comingSoonLoading}
+      />
+    </main>
   );
 };
 

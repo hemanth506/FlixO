@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { WatchListContext } from "../Home";
+import { WatchListContext } from "../../App";
 
 export const MovieCard = ({ movie, index, path }) => {
   const indexString = index ? `${index}. ` : "";
@@ -13,7 +13,7 @@ export const MovieCard = ({ movie, index, path }) => {
   };
 
   return (
-    <div className="movieCard" key={movie.id}>
+    <div className="movieCard">
       <div style={moviePosterDiv}>
         <img
           src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
