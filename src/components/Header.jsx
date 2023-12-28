@@ -13,10 +13,10 @@ export const Header = () => {
         </section>
         <section style={{ ...flexCenter, gap: "15px" }}>
           <input type="text" style={searchInput} placeholder="Search FlixO" />
-          <Link to="/movies/watchList" style={watchListLink}>
+          <Link to="/movies/watchList" style={LinkStyle}>
             <div style={watchListDiv}>
               <BsBookmarkPlus style={watchListIcon} />
-              <span>WatchList</span>
+              <span style={{ fontWeight: 700 }}>WatchList</span>
             </div>
           </Link>
         </section>
@@ -26,7 +26,7 @@ export const Header = () => {
 };
 
 const header = {
-  height: "9.5%",
+  height: "55px",
   backgroundColor: "rgb(18, 18, 18)",
   display: "flex",
   justifyContent: "center",
@@ -34,7 +34,7 @@ const header = {
 
 const searchInput = {
   width: "40vw",
-  height: "27px",
+  height: "29px",
   borderRadius: "5px",
   outlineColor: "#FFE42B",
   fontFamily: "Poppins",
@@ -42,12 +42,14 @@ const searchInput = {
   padding: "0px 10px",
 };
 
-const watchListLink = { textDecoration: "none", color: "white" };
+const LinkStyle = { textDecoration: "none", color: "white" };
 
-const watchListIcon = { fontSize: "22px", fontWeight: 900 };
+const watchListIcon = { fontSize: "20px" };
 
 const watchListDiv = {
   display: "flex",
+  alignItems: "center",
+  justifyContent: "center",
   gap: "2px",
   fontSize: "16px",
   cursor: "pointer",
