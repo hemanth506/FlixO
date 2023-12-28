@@ -11,7 +11,6 @@ const FanFavourite = lazy(() => import("./components/FanFavourite"));
 const InTheatres = lazy(() => import("./components/InTheatres"));
 const ComingSoon = lazy(() => import("./components/ComingSoon"));
 const MovieDetails = lazy(() => import("./components/MovieDetails"));
-const Trending = lazy(() => import("./components/Trending"));
 const TopRated = lazy(() => import("./components/TopRated"));
 
 function App() {
@@ -27,7 +26,6 @@ function App() {
               <Route path="fan-favourite" element={<FanFavourite />} />
               <Route path="in-theatres" element={<InTheatres />} />
               <Route path="coming-soon" element={<ComingSoon />} />
-              <Route path="trending" element={<Trending />} />
               <Route path="top-rated" element={<TopRated />} />
               <Route path="details/:movieId" element={<MovieDetails />} />
             </Route>

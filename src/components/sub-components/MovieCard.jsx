@@ -1,9 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
+import { WatchListContext } from "../Home";
 
-export const MovieCard = ({ movie, index }) => {
-  console.log(movie);
-
+export const MovieCard = ({ movie, index, path }) => {
   const indexString = index ? `${index}. ` : "";
+  const [watchListData, setWatchListData] = useContext(WatchListContext);
+
+  const handleAddToWatchList = () => {
+    const movieData = watchListData.filter((data) => data.id === movie.id);
+    if (movieData.length === 0) {
+      setWatchListData([...watchListData, movie]);
+    }
+  };
 
   return (
     <div className="movieCard" key={movie.id}>
@@ -15,15 +22,22 @@ export const MovieCard = ({ movie, index }) => {
         />
         <div style={moviePostInnerDiv}>
           <p>⭐ {movie.vote_average.toFixed(1)}</p>
-          <p style={{ fontSize: "clamp(9px, 2vw, 14px)", cursor: "pointer" }}>
+          <p style={{ fontSize: "14px", cursor: "pointer", width: "180px" }}>
             {indexString}
             {movie.title}
           </p>
         </div>
       </div>
-      <div style={{ display: "flex", justifyContent: "center" }}>
-        <p className="watchBtn">➕ Watchlist</p>
-      </div>
+      {path !== "watchlist" && (
+        <div style={watchBtnDiv} onClick={handleAddToWatchList}>
+          <p className="watchBtn">➕ Watchlist</p>
+        </div>
+      )}
+      {path === "watchlist" && (
+        <div style={watchBtnDiv}>
+          <p className="watchBtn">✔️ Watch now</p>
+        </div>
+      )}
     </div>
   );
 };
@@ -41,3 +55,5 @@ const moviePostInnerDiv = {
   gap: "5px",
   padding: "0px 10px",
 };
+
+const watchBtnDiv = { display: "flex", justifyContent: "center" };

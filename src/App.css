@@ -23,6 +23,13 @@ p {
   width: fit-content;
 }
 
+.section-title-withoutLink {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: fit-content;
+}
+
 .section-title:hover {
   cursor: pointer;
 }
@@ -55,9 +62,8 @@ p {
   overflow-x: auto;
 }
 
-/* Style for the scrollbar (for WebKit/Blink) */
 .movieContainer::-webkit-scrollbar {
-  height: 0px; /* Width of the vertical scrollbar */
+  height: 0px;
 }
 
 .movieCard {
@@ -66,6 +72,7 @@ p {
   justify-content: space-between;
   background-color: rgb(25, 25, 25);
   border-radius: 5px;
+  gap: 3px;
 }
 
 .moviePoster {
@@ -76,15 +83,15 @@ p {
 
 .watchBtn {
   font-size: 14px;
-  background-color: rgb(18,18,18);
+  background-color: rgb(18, 18, 18);
   cursor: pointer;
   margin-bottom: 10px;
-  border: 1.5px solid rgb(18,18,18);
+  border: 1.5px solid rgb(18, 18, 18);
   border-radius: 10px;
   padding: 5px 10px;
 }
 
 .watchBtn:active {
-  background-color: rgb(30,30,30);
+  background-color: rgb(30, 30, 30);
   border: 1.5px solid black;
 }
