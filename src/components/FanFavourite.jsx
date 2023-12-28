@@ -1,44 +1,55 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { fetchFanFavourite } from "../api/endpoints";
-import { MovieCard } from "./sub-components/MovieCard";
 import { MovieCardDetail } from "./sub-components/MovieCardDetail";
+import { Grid } from "@mui/material";
 
 const FanFavourite = () => {
   const [page, setpage] = useState(1);
   const [favData, setFavData] = useState([]);
-  console.log("🚀 ~ file: FanFavourite.jsx:5 ~ FanFavourite ~ page:", page);
+  const loadRef = useRef(null);
+  console.log("🚀FanFavourite.jsx:5 ~ page:", page);
 
   useEffect(() => {
-    const handleBackButton = () => {
-      setpage(1);
-      console.log("back arrow pressed");
-    };
-
     fetchFanFavourite(page)
       .then((data) => {
-        setFavData([...data]);
+        if (page === 1) {
+          setFavData([...data]);
+        } else {
+          setFavData((prevData) => [...prevData, ...data]);
+        }
       })
       .catch((err) => console.log(err));
-    window.addEventListener("popstate", handleBackButton);
+  }, [page]);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        console.log("It is matching!!");
+        setpage((prevPage) => prevPage + 1);
+      }
+    });
+
+    if (loadRef.current) {
+      observer.observe(loadRef.current);
+    }
+
     return () => {
-      window.removeEventListener("popstate", handleBackButton);
+      if (loadRef.current) {
+        observer.disconnect();
+      }
     };
-  }, []);
+  }, [favData]);
 
   return (
-    <div
-      style={{
-        display: "grid",
-        gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
-        gap: "16px",
-        padding: "30px 50px",
-      }}
-    >
-      {favData.map((movie) => {
-        // console.log(movie);
+    <div style={divStyle}>
+      {favData.map((movie, index) => {
         return (
-          // <div key={movie.id}>{movie.title}</div>
-          <MovieCardDetail key={movie.id} movie={movie} />
+          <Grid
+            ref={index + 1 === favData?.length ? loadRef : undefined}
+            key={index}
+          >
+            <MovieCardDetail movie={movie} />
+          </Grid>
         );
       })}
     </div>
@@ -46,3 +57,10 @@ const FanFavourite = () => {
 };
 
 export default FanFavourite;
+
+const divStyle = {
+  display: "grid",
+  gridTemplateColumns: "repeat(auto-fill, minmax(210px, 1fr))",
+  gap: "16px",
+  padding: "30px 50px",
+};
