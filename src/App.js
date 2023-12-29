@@ -5,18 +5,48 @@ import { Header } from "./components/Header";
 import { Home } from "./components/Home";
 import { Loading } from "./components/Loading";
 import { PageNotFound } from "./components/PageNotFound";
+import {
+  fetchComingSoon,
+  fetchFanFavourite,
+  fetchInTheatres,
+  fetchTopRated,
+} from "./api/endpoints";
 
 const WatchList = lazy(() => import("./components/WatchList"));
-const FanFavourite = lazy(() => import("./components/FanFavourite"));
-const InTheatres = lazy(() => import("./components/InTheatres"));
-const ComingSoon = lazy(() => import("./components/ComingSoon"));
+const MoviesComponent = lazy(() => import("./components/MoviesComponent"));
 const MovieDetails = lazy(() => import("./components/MovieDetails"));
-const TopRated = lazy(() => import("./components/TopRated"));
 
 export const WatchListContext = createContext();
 
 function App() {
   const watchListData = useState([]);
+  const comingSoonStateData = useState([]);
+  const topRatedStateData = useState([]);
+  const fanFavouriteStateData = useState([]);
+  const inTheatreStateData = useState([]);
+
+  const routeCategories = [
+    {
+      path: "fan-favourite",
+      movieStateData: fanFavouriteStateData,
+      fetchMovies: fetchFanFavourite,
+    },
+    {
+      path: "in-theatres",
+      movieStateData: inTheatreStateData,
+      fetchMovies: fetchInTheatres,
+    },
+    {
+      path: "coming-soon",
+      movieStateData: comingSoonStateData,
+      fetchMovies: fetchComingSoon,
+    },
+    {
+      path: "top-rated",
+      movieStateData: topRatedStateData,
+      fetchMovies: fetchTopRated,
+    },
+  ];
 
   return (
     <WatchListContext.Provider value={watchListData}>
@@ -25,13 +55,31 @@ function App() {
           <Header />
           <Suspense fallback={<Loading />}>
             <Routes>
-              <Route path="/" element={<Home />} />
+              <Route
+                path="/"
+                element={
+                  <Home
+                    fanFavouriteStateData={fanFavouriteStateData}
+                    comingSoonStateData={comingSoonStateData}
+                    inTheatreStateData={inTheatreStateData}
+                    topRatedStateData={topRatedStateData}
+                  />
+                }
+              />
               <Route path="movies">
                 <Route path="watchlist" element={<WatchList />} />
-                <Route path="fan-favourite" element={<FanFavourite />} />
-                <Route path="in-theatres" element={<InTheatres />} />
-                <Route path="coming-soon" element={<ComingSoon />} />
-                <Route path="top-rated" element={<TopRated />} />
+                {routeCategories.map((movieParams, index) => (
+                  <Route
+                    key={index}
+                    path={movieParams.path}
+                    element={
+                      <MoviesComponent
+                        movieStateData={movieParams.movieStateData}
+                        fetchMovies={movieParams.fetchMovies}
+                      />
+                    }
+                  />
+                ))}
                 <Route path="details/:movieId" element={<MovieDetails />} />
               </Route>
               <Route path="/*" element={<PageNotFound />} />

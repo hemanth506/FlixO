@@ -9,11 +9,16 @@ import {
 } from "../api/endpoints";
 import { WatchListContext } from "../App";
 
-export const Home = () => {
-  const [comingSoonData, setComingSoonData] = useState([]);
-  const [topRatedData, setTopRatedData] = useState([]);
-  const [fanFavouriteData, setFanFavouriteData] = useState([]);
-  const [inTheatresData, setInTheatresData] = useState([]);
+export const Home = ({
+  fanFavouriteStateData,
+  comingSoonStateData,
+  inTheatreStateData,
+  topRatedStateData,
+}) => {
+  const [comingSoonData, setComingSoonData] = comingSoonStateData;
+  const [topRatedData, setTopRatedData] = topRatedStateData;
+  const [fanFavouriteData, setFanFavouriteData] = fanFavouriteStateData;
+  const [inTheatresData, setInTheatresData] = inTheatreStateData;
   const [trendingData, setTrendingData] = useState([]);
   const watchListData = useContext(WatchListContext);
 
