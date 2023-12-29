@@ -2,7 +2,7 @@ import "./App.css";
 import React, { Suspense, lazy, useState, createContext } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Header } from "./components/Header";
-import { Home } from "./components/Home";
+import { Home } from "./pages/Home";
 import { Loading } from "./components/Loading";
 import { PageNotFound } from "./components/PageNotFound";
 import {
@@ -13,8 +13,8 @@ import {
 } from "./api/endpoints";
 
 const WatchList = lazy(() => import("./components/WatchList"));
-const MoviesComponent = lazy(() => import("./components/MoviesComponent"));
-const MovieDetails = lazy(() => import("./components/MovieDetails"));
+const MoviesComponent = lazy(() => import("./pages/MoviesComponent"));
+const MovieDetails = lazy(() => import("./pages/MovieDetails"));
 
 export const WatchListContext = createContext();
 

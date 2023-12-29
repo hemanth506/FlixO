@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
-import { MovieContainers } from "./sub-components/MovieContainer";
+import { MovieContainers } from "../components/sub-components/MovieContainer";
 import {
   fetchComingSoon,
   fetchFanFavourite,

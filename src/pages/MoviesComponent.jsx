@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { MovieCardDetail } from "./sub-components/MovieCardDetail";
+import { MovieCardDetail } from "../components/sub-components/MovieCardDetail";
 import { Grid } from "@mui/material";
 
 const MoviesComponent = ({ movieStateData, fetchMovies }) => {
