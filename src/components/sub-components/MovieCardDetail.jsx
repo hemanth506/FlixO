@@ -1,16 +1,36 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { WatchListContext } from "../../App";
+import { Link } from "react-router-dom";
 
 export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
+  const [watchListData, setWatchListData] = useContext(WatchListContext);
+
+  const handleAddToWatchList = () => {
+    const movieData = watchListData.filter((data) => data.id === movie.id);
+    if (movieData.length === 0) {
+      setWatchListData([...watchListData, movie]);
+    }
+  };
+
+  useEffect(() => {
+    localStorage.setItem("watchListData", JSON.stringify(watchListData));
+  }, [watchListData]);
+
   return (
     <div className="movieCard">
       <div style={moviePosterDiv}>
-        <img
-          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-          alt={movie.poster_path}
-        />
+        <Link to={`/movies/details/${movie.id}`}>
+          <img
+            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            alt={movie.poster_path}
+            style={{ width: "100%" }}
+          />
+        </Link>
         <div style={moviePostInnerDiv}>
           <p>⭐ {movie.vote_average.toFixed(1)}</p>
-          <p style={{ fontSize: "14px", cursor: "pointer" }}>{movie.title}</p>
+          <Link className="Link" to={`/movies/details/${movie.id}`}>
+            <p style={{ fontSize: "14px", cursor: "pointer" }}>{movie.title}</p>
+          </Link>
         </div>
       </div>
       <div style={watchBtnDiv}>
@@ -18,7 +38,11 @@ export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
           <p className="watchBtn">✔️ Watch Now</p>
         )}
 
-        {!neglectForWatchList && <p className="watchBtn">➕ Watchlist</p>}
+        {!neglectForWatchList && (
+          <p className="watchBtn" onClick={handleAddToWatchList}>
+            ➕ Watchlist
+          </p>
+        )}
       </div>
       <p>{movie.video && "Video available"}</p>
     </div>

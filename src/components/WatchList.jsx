@@ -5,6 +5,8 @@ import { Grid } from "@mui/material";
 
 const WatchList = () => {
   const [watchListData] = useContext(WatchListContext);
+
+  // Was having different idea.
   return (
     <div style={divStyle}>
       {watchListData.map((movie, index) => {
