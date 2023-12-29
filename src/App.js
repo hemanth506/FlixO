@@ -19,7 +19,8 @@ const MovieDetails = lazy(() => import("./pages/MovieDetails"));
 export const WatchListContext = createContext();
 
 function App() {
-  const watchListData = useState([]);
+  const watchListArr = JSON.parse(localStorage.getItem("watchListData")) || []
+  const watchListData = useState(watchListArr);
   const comingSoonStateData = useState([]);
   const topRatedStateData = useState([]);
   const fanFavouriteStateData = useState([]);

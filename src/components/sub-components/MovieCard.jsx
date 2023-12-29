@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { WatchListContext } from "../../App";
 import { Link } from "react-router-dom";
 
@@ -12,6 +12,10 @@ export const MovieCard = ({ movie, index, path }) => {
       setWatchListData([...watchListData, movie]);
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("watchListData", JSON.stringify(watchListData));
+  }, [watchListData]);
 
   return (
     <div className="movieCard">

@@ -1,6 +1,6 @@
 import React from "react";
 
-export const MovieCardDetail = ({ movie }) => {
+export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
   return (
     <div className="movieCard">
       <div style={moviePosterDiv}>
@@ -10,13 +10,15 @@ export const MovieCardDetail = ({ movie }) => {
         />
         <div style={moviePostInnerDiv}>
           <p>⭐ {movie.vote_average.toFixed(1)}</p>
-          <p style={{ fontSize: "14px", cursor: "pointer" }}>
-            {movie.title}
-          </p>
+          <p style={{ fontSize: "14px", cursor: "pointer" }}>{movie.title}</p>
         </div>
       </div>
       <div style={watchBtnDiv}>
-        <p className="watchBtn">➕ Watchlist</p>
+        {neglectForWatchList && neglectForWatchList === "watchList" && (
+          <p className="watchBtn">✔️ Watch Now</p>
+        )}
+
+        {!neglectForWatchList && <p className="watchBtn">➕ Watchlist</p>}
       </div>
       <p>{movie.video && "Video available"}</p>
     </div>
