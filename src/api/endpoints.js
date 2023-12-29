@@ -6,16 +6,20 @@ export const apiHeaders = {
 }
 
 const makeAPICall = (endpoint, page) => {
+  let pageQuery = "";
+  if (page) {
+    pageQuery = `?page=${page}`;
+  }
   const options = {
     method: "GET",
-    url: `${process.env.REACT_APP_MOVIE_BASE_URL}/${endpoint}?page=${page}`,
+    url: `${process.env.REACT_APP_MOVIE_BASE_URL}/${endpoint}${pageQuery}`,
     headers: apiHeaders
   };
 
   const response = axios
     .request(options)
     .then((res) => {
-      return res.data;
+      return res?.data;
     })
     .catch((err) => {
       return err;
@@ -51,8 +55,12 @@ export const fetchInTheatres = async (page = 1) => {
   return data.results;
 };
 
-export const fetchWatchList = async (page = 1) => {
-  const data = await makeAPICall("movie/upcoming", page);
-  return data.results;
-};
+export const fetchMovieDetails = async (movieId) => {
+  return await makeAPICall(`movie/${movieId}`);
+}
+
+// export const fetchWatchList = async (page = 1) => {
+//   const data = await makeAPICall("movie/upcoming", page);
+//   return data.results;
+// };
 

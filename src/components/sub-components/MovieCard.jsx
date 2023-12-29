@@ -1,5 +1,6 @@
 import React, { useContext } from "react";
 import { WatchListContext } from "../../App";
+import { Link } from "react-router-dom";
 
 export const MovieCard = ({ movie, index, path }) => {
   const indexString = index ? `${index}. ` : "";
@@ -15,16 +16,20 @@ export const MovieCard = ({ movie, index, path }) => {
   return (
     <div className="movieCard">
       <div style={moviePosterDiv}>
-        <img
-          src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
-          alt={movie.poster_path}
-          className="moviePoster"
-        />
+        <Link to={`/movies/details/${movie.id}`}>
+          <img
+            src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
+            alt={movie.poster_path}
+            className="moviePoster"
+          />
+        </Link>
         <div style={moviePostInnerDiv}>
           <p>⭐ {movie.vote_average.toFixed(1)}</p>
           <p style={{ fontSize: "14px", cursor: "pointer", width: "180px" }}>
-            {indexString}
-            {movie.title}
+            <Link className="Link" to={`/movies/details/${movie.id}`}>
+              {indexString}
+              {movie.title}
+            </Link>
           </p>
         </div>
       </div>
