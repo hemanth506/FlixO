@@ -1,11 +1,20 @@
 import React from "react";
 
-export const Loading = () => {
-  return <div>Loading...</div>;
-};
+import { CircularProgress } from "@mui/material";
+import Box from "@mui/material/Box";
 
-const divStyle = {
-  display: "flex",
-  alignItems: "center",
-  justifyContent: "center",
+export const Loading = () => {
+  return (
+    <Box
+      sx={{
+        display: "flex",
+        width: "100%",
+        height: "250px",
+        justifyContent: "center",
+        alignItems: "center",
+      }}
+    >
+      <CircularProgress />
+    </Box>
+  );
 };

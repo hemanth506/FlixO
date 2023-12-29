@@ -3,18 +3,6 @@ import { Link } from "react-router-dom";
 import { MovieCard } from "./MovieCard";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
-import { createTheme } from "@mui/material/styles";
-import { ThemeProvider } from "@mui/material/styles";
-
-const theme = createTheme({
-  components: {
-    MuiCircularProgress: {
-      styleOverrides: {
-        color: "white",
-      },
-    },
-  },
-});
 
 export const MovieContainers = ({ title, path, dataArr, loadingState }) => {
   if (path === "trending" || path === "watchlist") {
@@ -56,19 +44,17 @@ export const MovieContainers = ({ title, path, dataArr, loadingState }) => {
             );
           })}
         {loadingState && (
-          <ThemeProvider theme={theme}>
-            <Box
-              sx={{
-                display: "flex",
-                width: "100%",
-                height: "250px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              <CircularProgress />
-            </Box>
-          </ThemeProvider>
+          <Box
+            sx={{
+              display: "flex",
+              width: "100%",
+              height: "250px",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          >
+            <CircularProgress />
+          </Box>
         )}
       </div>
     </section>
