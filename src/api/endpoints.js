@@ -5,14 +5,17 @@ export const apiHeaders = {
   Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
 }
 
-const makeAPICall = (endpoint, page) => {
-  let pageQuery = "";
+const makeAPICall = (endpoint, page, searchText = "") => {
+  let additionalQuery = "";
   if (page) {
-    pageQuery = `?page=${page}`;
+    additionalQuery = `?page=${page}`;
+  }
+  if(searchText) {
+    additionalQuery += `&query=${searchText}`;
   }
   const options = {
     method: "GET",
-    url: `${process.env.REACT_APP_MOVIE_BASE_URL}/${endpoint}${pageQuery}`,
+    url: `${process.env.REACT_APP_MOVIE_BASE_URL}/${endpoint}${additionalQuery}`,
     headers: apiHeaders
   };
 
@@ -59,8 +62,8 @@ export const fetchMovieDetails = async (movieId) => {
   return await makeAPICall(`movie/${movieId}`);
 }
 
-// export const fetchWatchList = async (page = 1) => {
-//   const data = await makeAPICall("movie/upcoming", page);
-//   return data.results;
-// };
+export const fetchSearchResults = async (page = 1, searchText) => {
+  const data = await makeAPICall(`search/movie`, page, searchText);
+  return data.results;
+};
 

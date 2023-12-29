@@ -1,19 +1,77 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { BsBookmarkPlus } from "react-icons/bs";
 import { Link } from "react-router-dom";
+import { fetchSearchResults } from "../api/endpoints";
 
 export const Header = () => {
+  const [searchResults, setSearchResults] = useState([]);
+  const [searchText, setSearchText] = useState("");
+
+  useEffect(() => {
+    const timeOut = setTimeout(() => {
+      fetchSearchResults(1, searchText)
+        .then((data) => {
+          setSearchResults([...data]);
+        })
+        .catch((err) => console.log(err));
+    }, 2 * 1000);
+
+    return () => {
+      window.clearTimeout(timeOut);
+    };
+  }, [searchText]);
+
+  const clearSearchField = () => setSearchText("");
+
   return (
     <header style={header}>
       <section style={innerSection}>
         <section style={flexCenter}>
-          <Link to="/" style={appName}>
+          <Link to="/" style={appName} onClick={clearSearchField}>
             FlixO
           </Link>
         </section>
         <section style={{ ...flexCenter, gap: "15px" }}>
-          <input type="text" style={searchInput} placeholder="Search FlixO" />
-          <Link to="/movies/watchList" style={LinkStyle}>
+          <div style={{ position: "relative" }}>
+            <input
+              type="text"
+              style={searchInput}
+              placeholder="Search FlixO"
+              value={searchText}
+              onChange={(e) => setSearchText(e.target.value)}
+            />
+            {searchText && (
+              <div
+                style={{
+                  position: "absolute",
+                  backgroundColor: "rgba(0,0,0,0.9)",
+                  width: "40.2vw",
+                  display: "flex",
+                  gap: "4px",
+                  flexDirection: "column",
+                  padding: "10px",
+                  borderBottomLeftRadius: "10px",
+                  borderBottomRightRadius: "10px",
+                }}
+              >
+                {searchResults.map((movie, index) => (
+                  <Link
+                    to={`/movies/details/${movie.id}`}
+                    style={LinkStyle}
+                    onClick={clearSearchField}
+                    key={index}
+                  >
+                    <span className="searchResults">{movie.title}</span>
+                  </Link>
+                ))}
+              </div>
+            )}
+          </div>
+          <Link
+            to="/movies/watchList"
+            style={LinkStyle}
+            onClick={clearSearchField}
+          >
             <div style={watchListDiv}>
               <BsBookmarkPlus style={watchListIcon} />
               <span style={{ fontWeight: 700 }}>WatchList</span>

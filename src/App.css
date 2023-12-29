@@ -95,3 +95,11 @@ p {
   background-color: rgb(30, 30, 30);
   border: 1.5px solid black;
 }
+
+.searchResults {
+  cursor: pointer;
+}
+
+.searchResults:hover {
+  color: darkgray;
+}
