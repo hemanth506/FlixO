@@ -103,3 +103,10 @@ p {
 .searchResults:hover {
   color: darkgray;
 }
+
+.alertMessageDiv {
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+}

@@ -18,7 +18,7 @@ const MoviesComponent = ({ movieStateData, fetchMovies }) => {
         }
       })
       .catch((err) => console.log(err));
-  }, [page]);
+  }, [page, fetchMovies, setMoviesData]);
 
   useEffect(() => {
     const observer = new IntersectionObserver(([entry]) => {
@@ -28,12 +28,13 @@ const MoviesComponent = ({ movieStateData, fetchMovies }) => {
       }
     });
 
-    if (loadRef.current) {
-      observer.observe(loadRef.current);
+    const currentRef = loadRef.current;
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
     return () => {
-      if (loadRef.current) {
+      if (currentRef) {
         observer.disconnect();
       }
     };

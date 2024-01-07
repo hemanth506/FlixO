@@ -1,14 +1,19 @@
 import React, { useContext, useEffect } from "react";
-import { WatchListContext } from "../../App";
+import { WatchListContext, WatchListAlertContext } from "../../App";
 import { Link } from "react-router-dom";
 
 export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
   const [watchListData, setWatchListData] = useContext(WatchListContext);
+  const setWatchListAlert = useContext(WatchListAlertContext);
 
   const handleAddToWatchList = () => {
     const movieData = watchListData.filter((data) => data.id === movie.id);
     if (movieData.length === 0) {
       setWatchListData([...watchListData, movie]);
+      setWatchListAlert(true);
+      setTimeout(() => {
+        setWatchListAlert(false);
+      }, 2 * 1000);
     }
   };
 
