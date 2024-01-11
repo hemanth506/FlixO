@@ -1,4 +1,4 @@
-# FlexO Movie App
+# FlexO - Movie App
 
 FlexO is a lightweight movie app that provides information about recently released, top-rated, fan favorites, and upcoming movies, and allows users to maintain a personal watchlist. This app serves as a convenient and streamlined alternative to platforms like IMDb, offering essential details about movies without unnecessary complexity.
 
