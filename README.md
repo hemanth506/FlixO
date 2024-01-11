@@ -1,70 +1,61 @@
-# Getting Started with Create React App
+# FlexO Movie App
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+FlexO is a lightweight movie app that provides information about recently released, top-rated, fan favorites, and upcoming movies, and allows users to maintain a personal watchlist. This app serves as a convenient and streamlined alternative to platforms like IMDb, offering essential details about movies without unnecessary complexity.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- **Recently Released Movies:** Stay updated with the latest movies that have hit the screens.
 
-### `npm start`
+- **Top-Rated Movies:** Discover the highest-rated movies based on user reviews and ratings.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+- **Fan Favorites:** Explore movies that have gained popularity among the audience.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- **Upcoming Releases:** Get a sneak peek into the future with information about upcoming movie releases.
 
-### `npm test`
+- **Personal Watchlist:** Keep track of movies you want to watch by adding them to your personalized watchlist.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- **Movie Search:** Easily search for movies by title, genre, or actor to get detailed information.
 
-### `npm run build`
+## How to Use
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+1. **Browse Movie Categories:** Navigate through different categories such as recently released, top-rated, fan favorites, and upcoming releases.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+2. **Movie Details:** Click on a movie to view detailed information, including synopsis, cast, release date, and more.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+3. **Watchlist:** Add movies to your watchlist to curate your list of movies to watch.
 
-### `npm run eject`
+4. **Search Movies:** Use the search functionality to find specific movies based on title, genre, or actor.
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+## Getting Started
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+To get started with FlexO, follow these steps:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+1. **Clone the Repository:**
+   ```bash
+   git clone https://github.com/hemanth506/FlexO.git
+   ```
+2. **Install Dependencies:**
+    ```
+    cd flexo-movie-app
+    npm install
+    ```
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+3. **Run the App:**
+    ```
+    npm start
+    ```
 
-## Learn More
+4, **Access FlexO:**
+Open your browser and visit http://localhost:3000 to explore FlexO.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Technologies Used
+- React.js
+- AntD
+- Movie API
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Contributing
+If you'd like to contribute to FlexO, please follow our Contribution Guidelines.
 
-### Code Splitting
+## License
+This project is licensed under the MIT License.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
