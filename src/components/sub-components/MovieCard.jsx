@@ -1,8 +1,9 @@
 import React, { useCallback, useContext, useEffect } from "react";
 import { WatchListContext, WatchListAlertContext } from "../../App";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
-export const MovieCard = ({ movie, index, path }) => {
+const MovieCard = ({ movie, index, path }) => {
   const indexString = index ? `${index}. ` : "";
   const [watchListData, setWatchListData] = useContext(WatchListContext);
   const setWatchListAlert = useContext(WatchListAlertContext);
@@ -26,10 +27,13 @@ export const MovieCard = ({ movie, index, path }) => {
     <div className="movieCard">
       <div style={moviePosterDiv}>
         <Link to={`/movies/details/${movie.id}`}>
-          <img
+          <LazyLoadImage
+            key={movie.poster_path}
             src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
             alt={movie.poster_path}
             className="moviePoster"
+            effect="blur"
+            placeholderSrc={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           />
         </Link>
         <div style={moviePostInnerDiv}>
@@ -71,3 +75,6 @@ const moviePostInnerDiv = {
 };
 
 const watchBtnDiv = { display: "flex", justifyContent: "center" };
+
+
+export default MovieCard;

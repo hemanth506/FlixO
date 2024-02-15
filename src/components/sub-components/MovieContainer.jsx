@@ -1,10 +1,10 @@
-import React from "react";
+import React, { Suspense, lazy } from "react";
 import { Link } from "react-router-dom";
-import { MovieCard } from "./MovieCard";
 import { CircularProgress } from "@mui/material";
 import Box from "@mui/material/Box";
+const MovieCard = lazy(() => import("./MovieCard"));
 
-export const MovieContainers = ({ title, path, dataArr, loadingState }) => {
+const MovieContainers = ({ title, path, dataArr, loadingState }) => {
   if (path === "trending" || path === "watchlist") {
     dataArr = dataArr.filter((value, index) => index < 10);
   } else {
@@ -35,12 +35,13 @@ export const MovieContainers = ({ title, path, dataArr, loadingState }) => {
         {!loadingState &&
           dataArr.map((movie, index) => {
             return (
-              <MovieCard
-                key={movie.id}
-                movie={movie}
-                index={path === "trending" ? index + 1 : null}
-                path={path}
-              />
+              <Suspense key={movie.id}>
+                <MovieCard
+                  movie={movie}
+                  index={path === "trending" ? index + 1 : null}
+                  path={path}
+                />
+              </Suspense>
             );
           })}
         {loadingState && (
@@ -60,3 +61,5 @@ export const MovieContainers = ({ title, path, dataArr, loadingState }) => {
     </section>
   );
 };
+
+export default MovieContainers;

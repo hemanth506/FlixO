@@ -3,20 +3,20 @@ import axios from "axios";
 export const apiHeaders = {
   accept: "application/json",
   Authorization: `Bearer ${process.env.REACT_APP_AUTH_TOKEN}`,
-}
+};
 
 const makeAPICall = (endpoint, page, searchText = "") => {
   let additionalQuery = "";
   if (page) {
     additionalQuery = `?page=${page}`;
   }
-  if(searchText) {
+  if (searchText) {
     additionalQuery += `&query=${searchText}`;
   }
   const options = {
     method: "GET",
     url: `${process.env.REACT_APP_MOVIE_BASE_URL}/${endpoint}${additionalQuery}`,
-    headers: apiHeaders
+    headers: apiHeaders,
   };
 
   const response = axios
@@ -30,8 +30,6 @@ const makeAPICall = (endpoint, page, searchText = "") => {
 
   return response;
 };
-
-
 
 export const fetchComingSoon = async (page = 1) => {
   const data = await makeAPICall("movie/upcoming", page);
@@ -60,10 +58,23 @@ export const fetchInTheatres = async (page = 1) => {
 
 export const fetchMovieDetails = async (movieId) => {
   return await makeAPICall(`movie/${movieId}`);
-}
+};
 
 export const fetchSearchResults = async (page = 1, searchText) => {
   const data = await makeAPICall(`search/movie`, page, searchText);
   return data.results;
 };
 
+export const fetchMovieImage = async (data) => {
+  const image_url = `https://image.tmdb.org/t/p/original/${data?.backdrop_path}`;
+  return new Promise((resolve, reject) => {
+    const loadImg = new Image();
+    loadImg.src = image_url;
+    loadImg.onload = () =>
+      setTimeout(() => {
+        resolve(image_url);
+      }, 2000);
+
+    loadImg.onerror = (err) => reject(err);
+  });
+};

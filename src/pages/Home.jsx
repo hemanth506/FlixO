@@ -1,5 +1,6 @@
-import React, { useEffect, useState, useContext } from "react";
-import { MovieContainers } from "../components/sub-components/MovieContainer";
+import React, { useEffect, useState, useContext, lazy, Suspense } from "react";
+// import { MovieContainers } from "../components/sub-components/MovieContainer";
+
 import {
   fetchComingSoon,
   fetchFanFavourite,
@@ -8,6 +9,11 @@ import {
   fetchTrending,
 } from "../api/endpoints";
 import { WatchListContext } from "../App";
+import { Loading } from "../components/Loading";
+
+const MovieContainers = lazy(() =>
+  import("../components/sub-components/MovieContainer")
+);
 
 export const Home = ({
   fanFavouriteStateData,
@@ -70,42 +76,44 @@ export const Home = ({
 
   return (
     <main style={mainStyle}>
-      <MovieContainers
-        title="Top 10 of this week"
-        path="trending"
-        dataArr={trendingData}
-        loadingState={trendingLoading}
-      />
-      <MovieContainers
-        title="From your watchList"
-        path="watchlist"
-        dataArr={watchListData[0]}
-        loadingState={comingSoonLoading}
-      />
-      <MovieContainers
-        title="Fan Favourites"
-        path="fan-favourite"
-        dataArr={fanFavouriteData}
-        loadingState={fanFavouriteLoading}
-      />
-      <MovieContainers
-        title="Top Rated"
-        path="top-rated"
-        dataArr={topRatedData}
-        loadingState={topRatedLoading}
-      />
-      <MovieContainers
-        title="In Theatres"
-        path="in-theatres"
-        dataArr={inTheatresData}
-        loadingState={inTheatresLoading}
-      />
-      <MovieContainers
-        title="Coming soon to theatres"
-        path="coming-soon"
-        dataArr={comingSoonData}
-        loadingState={comingSoonLoading}
-      />
+      <Suspense fallback={<Loading />}>
+        <MovieContainers
+          title="Top 10 of this week"
+          path="trending"
+          dataArr={trendingData}
+          loadingState={trendingLoading}
+        />
+        <MovieContainers
+          title="From your watchList"
+          path="watchlist"
+          dataArr={watchListData[0]}
+          loadingState={comingSoonLoading}
+        />
+        <MovieContainers
+          title="Fan Favourites"
+          path="fan-favourite"
+          dataArr={fanFavouriteData}
+          loadingState={fanFavouriteLoading}
+        />
+        <MovieContainers
+          title="Top Rated"
+          path="top-rated"
+          dataArr={topRatedData}
+          loadingState={topRatedLoading}
+        />
+        <MovieContainers
+          title="In Theatres"
+          path="in-theatres"
+          dataArr={inTheatresData}
+          loadingState={inTheatresLoading}
+        />
+        <MovieContainers
+          title="Coming soon to theatres"
+          path="coming-soon"
+          dataArr={comingSoonData}
+          loadingState={comingSoonLoading}
+        />
+      </Suspense>
     </main>
   );
 };

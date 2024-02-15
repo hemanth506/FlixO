@@ -1,6 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { WatchListContext, WatchListAlertContext } from "../../App";
 import { Link } from "react-router-dom";
+import { LazyLoadImage } from 'react-lazy-load-image-component';
 
 export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
   const [watchListData, setWatchListData] = useContext(WatchListContext);
@@ -25,10 +26,15 @@ export const MovieCardDetail = ({ movie, neglectForWatchList }) => {
     <div className="movieCard">
       <div style={moviePosterDiv}>
         <Link to={`/movies/details/${movie.id}`}>
-          <img
+          <LazyLoadImage
+            key={movie.poster_path}
             src={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
             alt={movie.poster_path}
             style={{ width: "100%" }}
+            // height={350}
+            // width={211}
+            effect="blur"
+            placeholderSrc={`https://image.tmdb.org/t/p/original/${movie.poster_path}`}
           />
         </Link>
         <div style={moviePostInnerDiv}>

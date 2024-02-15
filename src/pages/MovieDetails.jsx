@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { fetchMovieDetails } from "../api/endpoints";
+import { fetchMovieDetails, fetchMovieImage } from "../api/endpoints";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 
 const MovieDetails = () => {
   const params = useParams();
@@ -21,10 +22,12 @@ const MovieDetails = () => {
     <div>
       {!loading && (
         <section style={{ margin: "20px 30px" }}>
-          <img
+          <LazyLoadImage
             src={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
             alt="load img"
             style={{ width: "100%" }}
+            effect="blur"
+            placeholderSrc={`https://image.tmdb.org/t/p/original/${details?.backdrop_path}`}
           />
           <section>
             <section style={{ margin: "20px 0px 30px 0px" }}>
