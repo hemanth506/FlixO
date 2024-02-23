@@ -56,46 +56,44 @@ function App() {
     <WatchListContext.Provider value={watchListData}>
       <WatchListAlertContext.Provider value={setAddWatchListAlert}>
         <div className="App">
-          <BrowserRouter>
-            <Header />
-            {addWatchListAlert && (
-              <div className="alertMessageDiv">
-                <Alert className="alertMessage">Added to Watch List!</Alert>
-              </div>
-            )}
-            <Suspense fallback={<Loading />}>
-              <Routes>
-                <Route
-                  path="/"
-                  element={
-                    <Home
-                      fanFavouriteStateData={fanFavouriteStateData}
-                      comingSoonStateData={comingSoonStateData}
-                      inTheatreStateData={inTheatreStateData}
-                      topRatedStateData={topRatedStateData}
-                    />
-                  }
-                />
-                <Route path="movies">
-                  <Route path="watchlist" element={<WatchList />} />
-                  {routeCategories.map((movieParams, index) => (
-                    <Route
-                      key={index}
-                      path={movieParams.path}
-                      element={
-                        <MoviesComponent
-                          movieStateData={movieParams.movieStateData}
-                          fetchMovies={movieParams.fetchMovies}
-                        />
-                      }
-                    />
-                  ))}
-                  <Route path="details/:movieId" element={<MovieDetails />} />
-                </Route>
-                <Route path="/*" element={<PageNotFound />} />
-              </Routes>
-            </Suspense>
-          </BrowserRouter>
+          <Header />
+          {addWatchListAlert && (
+            <div className="alertMessageDiv">
+              <Alert className="alertMessage">Added to Watch List!</Alert>
+            </div>
+          )}
+          <Suspense fallback={<Loading />}>
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <Home
+                    fanFavouriteStateData={fanFavouriteStateData}
+                    comingSoonStateData={comingSoonStateData}
+                    inTheatreStateData={inTheatreStateData}
+                    topRatedStateData={topRatedStateData}
+                  />
+                }
+              />
+              <Route path="movies">
+                <Route path="watchlist" element={<WatchList />} />
+                {routeCategories.map((movieParams, index) => (
+                  <Route
+                    key={index}
+                    path={movieParams.path}
+                    element={
+                      <MoviesComponent
+                        movieStateData={movieParams.movieStateData}
+                        fetchMovies={movieParams.fetchMovies}
+                      />
+                    }
+                  />
+                ))}
+                <Route path="details/:movieId" element={<MovieDetails />} />
+              </Route>
+              <Route path="/*" element={<PageNotFound />} />
+            </Routes>
+          </Suspense>
         </div>
       </WatchListAlertContext.Provider>
     </WatchListContext.Provider>
